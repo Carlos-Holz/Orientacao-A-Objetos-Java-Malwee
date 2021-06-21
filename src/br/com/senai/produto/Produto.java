@@ -9,7 +9,7 @@ public class Produto {
 	private int quantidadeDoProduto;
 	private double valorTotalDoProduto;
 
-	// CONTRUTOR
+	// CONSTRUTOR
 	public Produto() {
 	}
 
