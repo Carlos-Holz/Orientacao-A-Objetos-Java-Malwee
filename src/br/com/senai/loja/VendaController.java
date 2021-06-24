@@ -1,77 +1,132 @@
 package br.com.senai.loja;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
+import br.com.senai.ProgramaPrincipal;
 import br.com.senai.pessoa.Pessoa;
+import br.com.senai.pessoa.PessoaController;
+import br.com.senai.produto.Produto;
+import br.com.senai.produto.ProdutoController;
 
 public class VendaController {
 
+	private Scanner tec;
+	private ProdutoController produtoController;
+	private PessoaController pessoaController;
 	
-private Scanner tec;
+	ProgramaPrincipal programaPrincipal = new ProgramaPrincipal();
 	
-	public VendaController(){
+	List<Venda> vendas = new ArrayList<>();
+
+	public VendaController() {
 		tec = new Scanner(System.in);
+		produtoController = new ProdutoController();
+		pessoaController = new PessoaController();
 	}
-	
-	public int leOpcao(){
+
+	public int leOpcao() {
 		System.out.print("Informe a opção desejada -> ");
 		return tec.nextInt();
-	} 
-	
-	public void menu() {
-		System.out.println("|-------------- MENU ---------------|");
-		System.out.println("|1 -> Cadastrar Produtos            |");
-		System.out.println("|2 -> Lista de Produtos Cadastrados |");
-		System.out.println("|9 -> Sair do Sistema               |");
-		System.out.println("|-----------------------------------|");
-		System.out.println("\n");
 	}
 	
-	public Venda cadastrarProduto() {
-		Venda produto = new Venda();
+	public void menuVenda(List<Pessoa> pessoas, List<Produto> produtos) {
+		System.out.println("|---------- MENU DE VENDAS ----------|");
+		System.out.println("|9 -> Cadastrar Vendas               |");
+		System.out.println("|10 -> Listar Vendas                 |");
+		System.out.println("|0 -> Sair do Sistema                |");
+		System.out.println("|------------------------------------|");
+		System.out.println("\n");}
 		
-		System.out.println("---- Cadastrar Produtos ----");
+/*		do {
+
+			int opcao = leOpcao();
+
+			switch (opcao) {
+				case 9:
+					vendas.add(cadastrarVenda(produtos, pessoas));
+					break;
+		
+				case 10:
+					listarVenda(vendas);
+					break;
+					
+				default:
+					System.out.println("Opção Inválida!!!");
+					break;
+			}
+	}while();
+}*/
+	
+	public List<Venda> listarVenda(List<Venda> vendas) {
+		
+		System.out.println("\n");
+		System.out.println("----------------- VENDAS REALIZADAS ---------------");
 		System.out.println("\n");
 		
-		System.out.print("Informe o nome do produto: ");
-		tec.nextLine();
-		produto.set(tec.nextLine());
+		System.out.printf("| %10s | %10s | %4s | %6s | \n",
+				"Cliente" , "Produto" , "Qtd" , "Valor"
+		);
 		
-		System.out.print("Informe o valor unitário do produto: ");
-		produto.setAnoDeNascimento(tec.nextInt());
+		for(int i = 0; i < vendas.size(); i++) {
+			System.out.printf("| %10s | %10s | %4d | %6.2f | \n",
+					vendas.get(i).getPessoa().getNome(),
+					vendas.get(i).getProduto().getNomeDoProduto(),
+					vendas.get(i).getQuantidade(),
+					vendas.get(i).getValor()
+			);
+		}
 		
-		System.out.print("Informe a sua altura: ");
-		produto.setAltura(tec.nextDouble());
-		
-		System.out.print("Informe a quantidade comprada do produto: ");
-		tec.nextLine();
-		produto.setNomeDoPais(tec.nextLine());
-		
-		System.out.print("Informe a Sigla do País que você vive: ");
-		produto.setSiglaDoPais(tec.nextLine());
-		
-		System.out.print("Informe o Estado em que você reside: ");
-		produto.setNomeDoEstado(tec.nextLine());
-		
-		System.out.print("Informe o UF: ");
-		produto.setUf(tec.nextLine());
-		
-		System.out.print("Informe a Cidade que você reside: ");
-		produto.setNomeDaCidade(tec.nextLine());
-		
-		System.out.print("Informe o nome da Rua que você mora: ");
-		produto.setNomeDaRua(tec.nextLine());
-		
-		System.out.print("Informe o Bairro: ");
-		produto.setBairro(tec.nextLine());
-		
-		System.out.print("Complemento: ");
-		produto.setComplemento(tec.nextLine());
-		
-		System.out.print("Número: ");
-		produto.setNumero(tec.nextLine());
 		System.out.println("\n");
 		
-		return produto;
+		return vendas;
+	}
+	
+	public Venda cadastrarVenda(List<Produto> produtos, List<Pessoa> pessoas) {
+		
+		if(produtos.isEmpty() || pessoas.isEmpty()) {
+			System.out.println("\n");
+			System.out.println("Impossível realizar vendas sem PRODUTOS ou PESSOAS cadastradas!!");
+			System.out.println("\n");
+			return null;
+		}
+	
+		produtoController.listarProdutos(produtos);
+		pessoaController.listarPessoas(pessoas);
+		
+		Venda venda = new Venda();
+		Produto produto = new Produto();
+		Pessoa pessoa = new Pessoa();
+		
+		System.out.print("Informe o ID da pessoa -> ");
+		int idPessoa = tec.nextInt() - 1;
+		System.out.println("\n");
+		
+		pessoa.setNome(pessoas.get(idPessoa).getNome());
+		pessoa.setAnoDeNascimento(pessoas.get(idPessoa).getAnoDeNascimento());
+		pessoa.setAltura(pessoas.get(idPessoa).getAltura());
+		
+		venda.setPessoa(pessoa);
+		
+		System.out.print("Informe o ID do produto -> ");
+		int idProduto = tec.nextInt() - 1;
+		System.out.println("\n");
+		
+		produto.setNomeDoProduto(produtos.get(idProduto).getNomeDoProduto());
+		produto.setQuantidadeDoProduto(produtos.get(idProduto).getQuantidadeDoProduto());
+		produto.setValorUnitarioDoProduto(produtos.get(idProduto).getValorUnitarioDoProduto());
+		produto.setValorTotalDoProduto(produtos.get(idProduto).getValorTotalDoProduto());
+		
+		venda.setProduto(produto);
+		
+		System.out.print("Informe a quantidade desejada -> ");
+		venda.setQuantidade(tec.nextInt());
+		System.out.println("\n");
+		
+		venda.setValor(produto.getValorUnitarioDoProduto() * venda.getQuantidade());
+	
+		return venda;
+
 	}
 }

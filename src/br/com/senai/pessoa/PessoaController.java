@@ -1,13 +1,19 @@
 package br.com.senai.pessoa;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.senai.ProgramaPrincipal;
 import br.com.senai.pessoa.Pessoa;
 
 public class PessoaController {
 
 	private Scanner tec;
+	
+	List<Pessoa> pessoas = new ArrayList<>();
+	
+	ProgramaPrincipal programaPrincipal = new ProgramaPrincipal();
 	
 	public PessoaController(){
 		tec = new Scanner(System.in);
@@ -18,14 +24,50 @@ public class PessoaController {
 		return tec.nextInt();
 	} 
 	
-	public void menu() {
-		System.out.println("|-------------- MENU ---------------|");
+	public void menuPessoa(List<Pessoa> pessoas) {
+		System.out.println("|---------- MENU PESSOAS -----------|");
 		System.out.println("|1 -> Cadastrar Pessoas             |");
 		System.out.println("|2 -> Lista de Pessoas Cadastradas  |");
 		System.out.println("|3 -> Editar Pessoas Cadastradas    |");
 		System.out.println("|4 -> Excluir Pessoas Cadastradas   |");
-	}
-	
+		System.out.println("|5 -> Voltar para o menu principal  |");
+		System.out.println("|-----------------------------------|");
+		
+		do {
+
+			int opcao = leOpcao();
+
+			switch (opcao) {
+			
+			case 1:
+				System.out.println("\n");
+				pessoas.add(cadastrarPessoa());
+				break;
+
+			case 2:
+				listarPessoas(pessoas);
+			
+				break;
+				
+			case 3:
+				editarPessoa(pessoas);
+				break;
+				
+			case 4:
+				excluirPessoa(pessoas);
+				break;
+				
+			case 5:
+				programaPrincipal.menuPrincipal();
+				break;
+				
+			default:
+				System.out.println("Opção Inválida!!!");
+				break;
+			}
+			
+	} while(leOpcao() != 0);
+}
 	public Pessoa cadastrarPessoa() {
 		Pessoa pessoa = new Pessoa();
 		
