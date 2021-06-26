@@ -11,14 +11,13 @@ public class ProdutoController {
 	private Scanner tec;
 	
 	List<Produto> produtos = new ArrayList<>();
-	
-	ProgramaPrincipal programaPrincipal = new ProgramaPrincipal();
 
 	public ProdutoController() {
 		tec = new Scanner(System.in);
 	}
 
 	public int leOpcao() {
+		System.out.println("\n");
 		System.out.print("Informe a opção desejada -> ");
 		return tec.nextInt();
 	}
@@ -40,7 +39,7 @@ public class ProdutoController {
 		
 				case 1:
 					System.out.println("\n");
-					cadastrarProduto();
+					produtos.add(cadastrarProduto());
 		
 					break;
 
@@ -58,7 +57,7 @@ public class ProdutoController {
 					break;
 					
 				case 5:
-					programaPrincipal.menuPrincipal();
+					ProgramaPrincipal.menuPrincipal();
 					break;
 					
 				default:

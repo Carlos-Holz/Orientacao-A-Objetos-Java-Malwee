@@ -5,15 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 import br.com.senai.ProgramaPrincipal;
-import br.com.senai.pessoa.Pessoa;
 
 public class PessoaController {
 
 	private Scanner tec;
 	
 	List<Pessoa> pessoas = new ArrayList<>();
-	
-	ProgramaPrincipal programaPrincipal = new ProgramaPrincipal();
 	
 	public PessoaController(){
 		tec = new Scanner(System.in);
@@ -33,6 +30,8 @@ public class PessoaController {
 		System.out.println("|5 -> Voltar para o menu principal  |");
 		System.out.println("|-----------------------------------|");
 		
+		boolean sair = false;
+		
 		do {
 
 			int opcao = leOpcao();
@@ -46,7 +45,6 @@ public class PessoaController {
 
 			case 2:
 				listarPessoas(pessoas);
-			
 				break;
 				
 			case 3:
@@ -58,7 +56,9 @@ public class PessoaController {
 				break;
 				
 			case 5:
-				programaPrincipal.menuPrincipal();
+				if(sair = true) {
+					ProgramaPrincipal.menuPrincipal();
+				}
 				break;
 				
 			default:
@@ -66,7 +66,7 @@ public class PessoaController {
 				break;
 			}
 			
-	} while(leOpcao() != 0);
+	} while(!sair);
 }
 	public Pessoa cadastrarPessoa() {
 		Pessoa pessoa = new Pessoa();

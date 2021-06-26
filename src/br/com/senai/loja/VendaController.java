@@ -35,11 +35,13 @@ public class VendaController {
 		System.out.println("|---------- MENU DE VENDAS ----------|");
 		System.out.println("|9 -> Cadastrar Vendas               |");
 		System.out.println("|10 -> Listar Vendas                 |");
-		System.out.println("|0 -> Sair do Sistema                |");
+		System.out.println("|11 -> Voltar para o menu principal  |");
 		System.out.println("|------------------------------------|");
-		System.out.println("\n");}
+		System.out.println("\n");
+	
+	boolean sair = false;
 		
-/*		do {
+		do {
 
 			int opcao = leOpcao();
 
@@ -52,13 +54,18 @@ public class VendaController {
 					listarVenda(vendas);
 					break;
 					
+				case 11:
+					if(sair = true) {
+						ProgramaPrincipal.menuPrincipal();
+					}
+					break;
+					
 				default:
 					System.out.println("Opção Inválida!!!");
 					break;
 			}
-	}while();
-}*/
-	
+	}while(!sair);
+}
 	public List<Venda> listarVenda(List<Venda> vendas) {
 		
 		System.out.println("\n");
