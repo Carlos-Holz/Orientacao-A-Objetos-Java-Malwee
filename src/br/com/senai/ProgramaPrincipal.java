@@ -19,6 +19,7 @@ public class ProgramaPrincipal {
 	}
 	
 	public static void menuPrincipal() {
+		System.out.println("\n");
 		System.out.println("|---------- MENU PRINCIPAL ----------|");
 		System.out.println("|1 -> Pessoas                        |");
 		System.out.println("|2 -> Produtos                       |");

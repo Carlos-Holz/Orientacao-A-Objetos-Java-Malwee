@@ -33,9 +33,9 @@ public class VendaController {
 	
 	public void menuVenda(List<Pessoa> pessoas, List<Produto> produtos) {
 		System.out.println("|---------- MENU DE VENDAS ----------|");
-		System.out.println("|9 -> Cadastrar Vendas               |");
-		System.out.println("|10 -> Listar Vendas                 |");
-		System.out.println("|11 -> Voltar para o menu principal  |");
+		System.out.println("|1 -> Cadastrar Vendas               |");
+		System.out.println("|2 -> Listar Vendas                  |");
+		System.out.println("|3 -> Voltar para o menu principal   |");
 		System.out.println("|------------------------------------|");
 		System.out.println("\n");
 	
@@ -46,15 +46,15 @@ public class VendaController {
 			int opcao = leOpcao();
 
 			switch (opcao) {
-				case 9:
+				case 1:
 					vendas.add(cadastrarVenda(produtos, pessoas));
 					break;
 		
-				case 10:
+				case 2:
 					listarVenda(vendas);
 					break;
 					
-				case 11:
+				case 3:
 					if(sair = true) {
 						ProgramaPrincipal.menuPrincipal();
 					}
