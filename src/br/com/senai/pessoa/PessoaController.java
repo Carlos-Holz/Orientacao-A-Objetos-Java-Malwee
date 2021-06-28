@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import br.com.senai.ProgramaPrincipal;
-
 public class PessoaController {
 
 	private Scanner tec;
@@ -19,22 +17,21 @@ public class PessoaController {
 	public int leOpcao(){
 		System.out.println("\n");
 		System.out.print("Informe a opção desejada -> ");
-		System.out.println("\n");
 		return tec.nextInt();
 	} 
 	
 	public void menuPessoa(List<Pessoa> pessoas) {
-		System.out.println("|---------- MENU PESSOAS -----------|");
-		System.out.println("|1 -> Cadastrar Pessoas             |");
-		System.out.println("|2 -> Lista de Pessoas Cadastradas  |");
-		System.out.println("|3 -> Editar Pessoas Cadastradas    |");
-		System.out.println("|4 -> Excluir Pessoas Cadastradas   |");
-		System.out.println("|5 -> Voltar para o menu principal  |");
-		System.out.println("|-----------------------------------|");
 		
 		boolean sair = false;
 		
 		do {
+			System.out.println("|---------- MENU PESSOAS -----------|");
+			System.out.println("|1 -> Cadastrar Pessoas             |");
+			System.out.println("|2 -> Lista de Pessoas Cadastradas  |");
+			System.out.println("|3 -> Editar Pessoas Cadastradas    |");
+			System.out.println("|4 -> Excluir Pessoas Cadastradas   |");
+			System.out.println("|-----------------------------------|");
+
 
 			int opcao = leOpcao();
 
@@ -57,18 +54,16 @@ public class PessoaController {
 				excluirPessoa(pessoas);
 				break;
 				
-			case 5:
-				if(sair = true) {
-					ProgramaPrincipal.menuPrincipal();
-				}
-				break;
-				
 			default:
 				System.out.println("Opção Inválida!!!");
 				break;
 			}
+			System.out.print("Deseja retornar ao MENU PRINCIPAL? [S/N] -> ");
+			String resposta = tec.next();
+			sair = resposta.equalsIgnoreCase("s") ? true : false;
+			System.out.println("\n");
 			
-	} while(!sair);
+	} while(sair);
 }
 	public Pessoa cadastrarPessoa() {
 		Pessoa pessoa = new Pessoa();
@@ -128,15 +123,14 @@ public class PessoaController {
 		}
 		
 		System.out.println("\n");
-		System.out.println("----------------- PESSOAS CADASTRADADS ---------------");
+		System.out.println("--------------------------------------------------------------------------------------------------------------------- PESSOAS CADASTRADADS -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 		
 		System.out.printf("| %2s | %15s | %20s | %20s | %20s | %20s| %21s | %23s | %20s | %30s | %30s | %30s | %21s | %30s | \n" ,
 				 "ID" , "Nome" , "Ano" , "Idade" , "Altura", "País" , "Sigla Páis", "Estado" , "UF" , "Cidade" , "Rua" , "Bairro" , "Complemento" , "Número");
 		
 		for(int i = 0; i < pessoas.size(); i++) {
-			System.out.printf("| %2d | %15s | %20d | %20d | %20s | %19s | %21s | %23s | %20s | %30\"\r\n"
-					+ "					+ \"s | %30s | %30s | %21s | %30s | \n" ,
+			System.out.printf("| %2d | %15s | %20d | %20d | %20s | %19s | %21s | %23s | %20s | %30s | %30s | %30s | %21s | %30s | \n" ,
 					i + 1,
 					pessoas.get(i).getNome(),
 					pessoas.get(i).getAnoDeNascimento(),
@@ -480,7 +474,7 @@ public class PessoaController {
 			return;
 		}
 		
-		System.out.println("----------------- EXCLUIR PESSOA ---------------");
+		System.out.println("--------------------------------------------------------------------------------------------------------------------- EXCLUIR PESSOA -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 		
 		System.out.print("Informe o ID da pessoa que deseja excluir -> ");

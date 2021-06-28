@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import br.com.senai.ProgramaPrincipal;
-
 public class ProdutoController {
 
 	private Scanner tec;
-	
+
 	List<Produto> produtos = new ArrayList<>();
 
 	public ProdutoController() {
@@ -23,50 +21,52 @@ public class ProdutoController {
 	}
 
 	public void menuProduto(List<Produto> produtos) {
-		System.out.println("|---------- MENU PRODUTOS ----------|");
-		System.out.println("|1 -> Cadastrar Produtos            |");
-		System.out.println("|2 -> Lista de Produtos Cadastrados |");
-		System.out.println("|3 -> Editar produto                |");
-		System.out.println("|4 -> Excluir produto               |");
-		System.out.println("|5 -> Voltar para o menu principal  |");
-		System.out.println("|-----------------------------------|");
-		
+		boolean sair = false;
+
 		do {
+			System.out.println("|---------- MENU PRODUTOS ----------|");
+			System.out.println("|1 -> Cadastrar Produtos            |");
+			System.out.println("|2 -> Lista de Produtos Cadastrados |");
+			System.out.println("|3 -> Editar produto                |");
+			System.out.println("|4 -> Excluir produto               |");
+			System.out.println("|-----------------------------------|");
 
 			int opcao = leOpcao();
 
 			switch (opcao) {
-		
-				case 1:
-					System.out.println("\n");
-					produtos.add(cadastrarProduto());
-		
-					break;
 
-				case 2:
-					listarProdutos(produtos);
+			case 1:
+				System.out.println("\n");
+				produtos.add(cadastrarProduto());
 
-					break;
-	
-				case 3:
-					editarProduto(produtos);
-					break;
-		
-				case 4:
-					excluirProduto(produtos);
-					break;
-					
-				case 5:
-					ProgramaPrincipal.menuPrincipal();
-					break;
-					
-				default:
-					System.out.println("Opção Inválida!!!");
-					break;
+				break;
+
+			case 2:
+				listarProdutos(produtos);
+
+				break;
+
+			case 3:
+				editarProduto(produtos);
+				break;
+
+			case 4:
+				excluirProduto(produtos);
+				break;
+
+			default:
+				System.out.println("Opção Inválida!!!");
+				break;
 			}
-			
-	} while(leOpcao() != 0);
-}
+
+			System.out.print("Deseja retornar ao MENU PRINCIPAL? [S/N] -> ");
+			String resposta = tec.next();
+			sair = resposta.equalsIgnoreCase("s") ? true : false;
+			System.out.println("\n");
+
+		} while (sair);
+	}
+
 	public Produto cadastrarProduto() {
 		Produto produto = new Produto();
 
@@ -99,7 +99,7 @@ public class ProdutoController {
 		}
 
 		System.out.println("\n");
-		System.out.println("----------------- PRODUTOS CADASTRADOS ---------------");
+		System.out.println("--------------------------------------------------------------------------------------------------------------------- PRODUTOS CADASTRADOS -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 
 		System.out.printf("| %2s | %10s | %10s | %13s | %9s | \n", "ID", "Produto", "Valor Uni.", "Quantidade",
@@ -202,7 +202,7 @@ public class ProdutoController {
 			return;
 		}
 
-		System.out.println("----------------- EXCLUIR PRODUTO ---------------");
+		System.out.println("--------------------------------------------------------------------------------------------------------------------- EXCLUIR PRODUTO -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 
 		System.out.print("Informe o ID do produto que deseja excluir -> ");
